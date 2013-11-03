@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = 'com.nru.gradle'
+version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    repositories {
+        mavenCentral()
+    }
+    compile gradleApi()
+    compile localGroovy()
+//    compile "com.google.code.findbugs:annotations:2.0.0"
+//    findbugs "com.google.code.findbugs:findbugs-ant:2.0.0"
+}
+
+install {
+  repositories.mavenInstaller {
+    pom.artifactId = 'gradle-android-statistic-plugin'
+  }
+}
