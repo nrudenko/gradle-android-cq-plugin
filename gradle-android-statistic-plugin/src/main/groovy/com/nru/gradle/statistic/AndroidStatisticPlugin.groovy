@@ -8,12 +8,15 @@ public class AndroidStatisticPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        project.configurations.create('findbugs');
+        project.repositories.add(project.repositories.mavenCentral())
+
+        project.configurations.create('findbugs')
         project.configurations.create('findbugsPlugins')
+        project.configurations.create('codequality')
 
         project.task('findbugs', type: AndroidFindBugsTask)
+        project.task('checkstyle', type: AndroidCheckstyleTask)
 //        Task pmdTask = project.task('pmd') << pmdClos
-//        Task checkstyleTask = project.task('checkStyle') << checkStyleClos
     }
 
 }

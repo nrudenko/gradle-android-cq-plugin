@@ -5,23 +5,14 @@ import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
 import org.gradle.api.internal.project.IsolatedAntBuilder
-import org.gradle.api.publish.maven.MavenDependency
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
-
 /**
  * See parameters at http://findbugs.sourceforge.net/manual/anttask.html
  */
 class AndroidFindBugsTask extends DefaultTask {
-
-//    @InputFile
-//    @Optional
-//    File excludeFile = new File("$project.rootDir/config/findbugs/exclude.xml")
-//    @InputFile
-//    @Optional
-//    File xslFile = new File("$project.rootDir/config/findbugs/default.xsl")
     @InputFile
     @Optional
     File excludeFile;
@@ -41,9 +32,9 @@ class AndroidFindBugsTask extends DefaultTask {
     def AndroidFindBugsTask() {
         description = 'Runs FindBugs against Android sourcesets.'
         group = 'Code Quality'
-        dependsOn 'assemble'
-        dependsOn 'assembleTest'
-        dependsOn 'assembleDebug'
+//        dependsOn 'assemble'
+//        dependsOn 'assembleTest'
+//        dependsOn 'assembleDebug'
     }
 
     @TaskAction
@@ -51,10 +42,8 @@ class AndroidFindBugsTask extends DefaultTask {
         excludeFile = new File(getClass().getResource("findbugs/default.xsl").text)
         xslFile = new File(getClass().getResource("findbugs/exclude.xml").text);
 
-//        project.afterEvaluate {
-            project.dependencies.add('compile', 'com.google.code.findbugs:annotations:2.0.0')
-            project.dependencies.add('findbugs', 'com.google.code.findbugs:findbugs-ant:2.0.2')
-//        }
+        project.dependencies.add('compile', 'com.google.code.findbugs:annotations:2.0.0')
+        project.dependencies.add('findbugs', 'com.google.code.findbugs:findbugs-ant:2.0.2')
 
         outputFile.parentFile.mkdirs()
         def antBuilder = services.get(IsolatedAntBuilder)

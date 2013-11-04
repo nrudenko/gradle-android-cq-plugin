@@ -20,8 +20,6 @@ dependencies {
     }
     compile gradleApi()
     compile localGroovy()
-//    compile "com.google.code.findbugs:annotations:2.0.0"
-//    findbugs "com.google.code.findbugs:findbugs-ant:2.0.0"
 }
 
 install {
