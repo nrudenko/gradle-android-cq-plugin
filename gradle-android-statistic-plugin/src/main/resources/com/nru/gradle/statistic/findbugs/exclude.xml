@@ -1,7 +1,7 @@
 <FindBugsFilter>
     <Match>
         <Or>
-            <Class name="~org.lenition.rosette.R.*" />
+            <Class name="~*.R.*" />
             <Class name="~.*Binding" />
             <Class name="~.*Fixture" />
         </Or>

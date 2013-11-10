@@ -16,7 +16,8 @@ public class AndroidStatisticPlugin implements Plugin<Project> {
 
         project.task('findbugs', type: AndroidFindBugsTask)
         project.task('checkstyle', type: AndroidCheckstyleTask)
-//        Task pmdTask = project.task('pmd') << pmdClos
+        project.task('pmd', type: AndroidPmdTask)
+        project.task('cpd', type: AndroidCpdTask)
     }
 
 }

@@ -1,54 +1,57 @@
 package com.nru.gradle.statistic
 
-import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
-import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
 import org.gradle.api.internal.project.IsolatedAntBuilder
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 /**
  * See parameters at http://findbugs.sourceforge.net/manual/anttask.html
  */
-class AndroidFindBugsTask extends DefaultTask {
+class AndroidFindBugsTask extends BaseStatisticTask {
+    public static final String excludeFilePath = "findbugs/default.xsl"
+    public static final String findbugTaskClassname = 'edu.umd.cs.findbugs.anttask.FindBugsTask'
     @InputFile
     @Optional
     File excludeFile;
-    @InputFile
-    @Optional
-    File xslFile;
 
-    @OutputFile
-    File outputFile = new File("$project.buildDir/reports/findbugs/findbugs-${project.name}.xml")
     FileCollection findbugsClasspath = project.configurations.findbugs
     FileCollection pluginClasspath = project.configurations.findbugsPlugins
-    Boolean ignoreFailures = false
-    Project gradleProject = project
+    Boolean ignoreFailures = true
     String errorProp = 'findbugsError'
     String warningsProp = 'findbugsWarnings'
+
+    @Override
+    String getXslFilePath() {
+        return "findbugs/default.xsl"
+    }
+
+    @Override
+    String getOutputPath() {
+        return "$project.buildDir/reports/findbugs/findbugs-${project.name}.xml"
+    }
 
     def AndroidFindBugsTask() {
         description = 'Runs FindBugs against Android sourcesets.'
         group = 'Code Quality'
-//        dependsOn 'assemble'
-//        dependsOn 'assembleTest'
-//        dependsOn 'assembleDebug'
+        dependsOn 'assemble'
+        dependsOn 'assembleTest'
+        dependsOn 'assembleDebug'
     }
 
     @TaskAction
     def findBugs() {
-        excludeFile = new File(getClass().getResource("findbugs/default.xsl").text)
-        xslFile = new File(getClass().getResource("findbugs/exclude.xml").text);
-
         project.dependencies.add('compile', 'com.google.code.findbugs:annotations:2.0.0')
         project.dependencies.add('findbugs', 'com.google.code.findbugs:findbugs-ant:2.0.2')
 
-        outputFile.parentFile.mkdirs()
+        createOutputFileIfNeeded();
+        getXlsFile()
+        excludeFile = getDefaultFileIfNeeded(excludeFile, excludeFilePath)
+
         def antBuilder = services.get(IsolatedAntBuilder)
         antBuilder.withClasspath(findbugsClasspath).execute {
-            ant.taskdef(name: 'findbugs', classname: 'edu.umd.cs.findbugs.anttask.FindBugsTask')
+            ant.taskdef(name: 'findbugs', classname: findbugTaskClassname)
             ant.findbugs(debug: 'true',
                     errorProperty: errorProp,
                     warningsProperty: warningsProp,
