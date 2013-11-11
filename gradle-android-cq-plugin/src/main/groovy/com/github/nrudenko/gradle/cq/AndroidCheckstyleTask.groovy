@@ -1,4 +1,4 @@
-package com.nru.gradle.statistic
+package com.github.nrudenko.gradle.cq
 
 import org.gradle.api.file.FileCollection
 import org.gradle.api.internal.project.IsolatedAntBuilder
@@ -62,12 +62,7 @@ class AndroidCheckstyleTask extends BaseStatisticTask {
                 formatter(type: 'xml', toFile: outputFile)
             }
 
-            if (outputFile.exists() && xslFile != null && xslFile.exists()) {
-                ant.xslt(in: outputFile,
-                        style: xslFile,
-                        out: outputFile.absolutePath.replaceFirst(~/\.[^\.]+$/, ".html")
-                )
-            }
+            makeHtml(ant)
         }
     }
 }

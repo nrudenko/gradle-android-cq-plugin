@@ -1,4 +1,4 @@
-package com.nru.gradle.statistic
+package com.github.nrudenko.gradle.cq
 
 import org.gradle.api.file.FileCollection
 import org.gradle.api.internal.project.IsolatedAntBuilder
@@ -11,7 +11,7 @@ import org.gradle.api.tasks.TaskAction
 class AndroidPmdTask extends BaseStatisticTask {
 
     public static final String pmdTaskClassname = 'net.sourceforge.pmd.ant.PMDTask'
-    public static final String rulesetPath = "pmd/ruleset.xml"
+    public static final String rulesetPath = "pmd/pmd-basic-rules.xml"
 
     @InputFile
     @Optional
@@ -60,12 +60,7 @@ class AndroidPmdTask extends BaseStatisticTask {
                     }
                 }
             }
-
-            if (outputFile.exists() && xslFile != null && xslFile.exists()) {
-                ant.xslt(in: outputFile,
-                        style: xslFile,
-                        out: outputFile.absolutePath.replaceFirst(~/\.[^\.]+$/, ".html"))
-            }
+            makeHtml(ant)
         }
     }
 }

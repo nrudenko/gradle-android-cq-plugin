@@ -1,9 +1,9 @@
-package com.nru.gradle.statistic
+package com.github.nrudenko.gradle.cq
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-public class AndroidStatisticPlugin implements Plugin<Project> {
+public class AndroidCQPlugin implements Plugin<Project> {
 
 
     @Override

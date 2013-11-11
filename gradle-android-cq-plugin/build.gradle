@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.2'
+    }
+}
+
+group = 'com.github.nrudenko'
+version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'nexus'
+
+dependencies {
+    repositories {
+        mavenCentral()
+    }
+    compile gradleApi()
+    compile localGroovy()
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.artifactId = 'gradle-android-cq-plugin'
+    }
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.artifactId = 'gradle-android-cq-plugin'
+    }
+}
+
+modifyPom {
+    project {
+        name 'Gradle Android CodeQuality Plugin'
+        description "A Gradle plugin which added tasks for checking java code quality for android projects"
+        url 'https://github.com/nrudenko/gradle-android-cq-plugin'
+        inceptionYear '2013'
+
+        scm {
+            url 'https://github.com/nrudenko/gradle-android-cq-plugin'
+            connection 'scm:git:git://github.com/nrudenko/gradle-android-cq-plugin.git'
+            developerConnection 'scm:git:ssh://git@github.com:nrudenko/gradle-android-cq-plugin.git'
+        }
+
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'nrudenko'
+                name 'Nikolay Rudenko'
+                email 'r.nikolay.e@gmail.com'
+            }
+        }
+    }
+}
+
+

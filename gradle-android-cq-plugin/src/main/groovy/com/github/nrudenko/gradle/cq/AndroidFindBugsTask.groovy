@@ -1,4 +1,4 @@
-package com.nru.gradle.statistic
+package com.github.nrudenko.gradle.cq
 
 import org.gradle.api.GradleException
 import org.gradle.api.file.FileCollection
@@ -10,7 +10,7 @@ import org.gradle.api.tasks.TaskAction
  * See parameters at http://findbugs.sourceforge.net/manual/anttask.html
  */
 class AndroidFindBugsTask extends BaseStatisticTask {
-    public static final String excludeFilePath = "findbugs/default.xsl"
+    public static final String excludeFilePath = "findbugs/exclude.xsl"
     public static final String findbugTaskClassname = 'edu.umd.cs.findbugs.anttask.FindBugsTask'
     @InputFile
     @Optional
@@ -24,7 +24,7 @@ class AndroidFindBugsTask extends BaseStatisticTask {
 
     @Override
     String getXslFilePath() {
-        return "findbugs/default.xsl"
+        return "findbugs/fancy.xsl"
     }
 
     @Override
@@ -80,13 +80,7 @@ class AndroidFindBugsTask extends BaseStatisticTask {
                 }
             }
 
-            if (outputFile.exists() && xslFile != null && xslFile.exists()) {
-                ant.xslt(in: outputFile,
-                        style: xslFile,
-                        out: outputFile.absolutePath.replaceFirst(~/\.[^\.]+$/, ".html")
-                )
-            }
-
+            makeHtml(ant)
         }
     }
 }
