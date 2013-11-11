@@ -21,10 +21,11 @@ abstract class BaseStatisticTask extends DefaultTask {
     File outputFile
 
     File getXlsFile() {
-        xslFile = getDefaultFileIfNeeded(xslFile, getXslFilePath())
+        xslFile = getFileFromConfigCache(getXslFilePath())
     }
 
-    File createOutputFileIfNeeded() {
+    File prepareTaskFiles() {
+        getXlsFile()
         if (outputFile == null || !outputFile.exists()) {
             outputFile = new File(getOutputPath())
             outputFile.parentFile.mkdirs()
@@ -32,15 +33,15 @@ abstract class BaseStatisticTask extends DefaultTask {
         outputFile
     }
 
-    File getDefaultFileIfNeeded(File file, String pathFromRes) {
+    File getFileFromConfigCache(String path) {
+        def String pathCache = defaultConfigPath + path;
+        File file = new File(pathCache)
         if (file == null || !file.exists()) {
-            def String pathCache = defaultConfigPath + pathFromRes;
 
-            file = new File(pathCache)
             file.parentFile.mkdirs()
             file.createNewFile()
 
-            this.getClass().getResource(pathFromRes).withInputStream { ris ->
+            this.getClass().getResource(path).withInputStream { ris ->
                 new File(pathCache).withOutputStream { fos ->
                     fos << ris
                 }

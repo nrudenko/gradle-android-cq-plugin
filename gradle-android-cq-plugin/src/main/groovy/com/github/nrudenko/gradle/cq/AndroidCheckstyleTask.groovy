@@ -23,7 +23,7 @@ class AndroidCheckstyleTask extends BaseStatisticTask {
 
     @Override
     String getXslFilePath() {
-        return "checkstyle/checkstyle-noframes-sorted.xsl"
+        return "checkstyle/checkstyle-html.xsl"
     }
 
     @Override
@@ -38,11 +38,8 @@ class AndroidCheckstyleTask extends BaseStatisticTask {
 
     @TaskAction
     def runCheckstyle() {
-        project.dependencies.add('codequality', 'com.puppycrawl.tools:checkstyle:5.6')
-        createOutputFileIfNeeded()
-        getXlsFile();
-
-        configFile = getDefaultFileIfNeeded(configFile, configFilePath)
+        prepareTaskFiles()
+        configFile = getFileFromConfigCache(configFilePath)
 
         def antBuilder = services.get(IsolatedAntBuilder)
         antBuilder.withClasspath(checkstyleClasspath).execute {

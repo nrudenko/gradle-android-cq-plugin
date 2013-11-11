@@ -11,7 +11,7 @@ class AndroidCpdTask extends BaseStatisticTask {
 
     @Override
     String getXslFilePath() {
-        return "cpd/cpdhtml.xslt"
+        return "cpd/cpd-html.xsl"
     }
 
     @Override
@@ -21,10 +21,7 @@ class AndroidCpdTask extends BaseStatisticTask {
 
     @TaskAction
     runCpd() {
-        project.dependencies.add('codequality', 'pmd:pmd:4.2.6')
-
-        createOutputFileIfNeeded()
-        getXlsFile()
+        prepareTaskFiles()
 
         def antBuilder = services.get(IsolatedAntBuilder)
         antBuilder.withClasspath(codequalityClasspath).execute {

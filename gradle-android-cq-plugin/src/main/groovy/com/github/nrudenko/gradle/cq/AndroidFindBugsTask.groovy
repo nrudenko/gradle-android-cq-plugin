@@ -24,7 +24,7 @@ class AndroidFindBugsTask extends BaseStatisticTask {
 
     @Override
     String getXslFilePath() {
-        return "findbugs/fancy.xsl"
+        return "findbugs/findbugs-html.xsl"
     }
 
     @Override
@@ -41,13 +41,10 @@ class AndroidFindBugsTask extends BaseStatisticTask {
     }
 
     @TaskAction
-    def findBugs() {
-        project.dependencies.add('compile', 'com.google.code.findbugs:annotations:2.0.0')
-        project.dependencies.add('findbugs', 'com.google.code.findbugs:findbugs-ant:2.0.2')
+    def runFindBugs() {
 
-        createOutputFileIfNeeded();
-        getXlsFile()
-        excludeFile = getDefaultFileIfNeeded(excludeFile, excludeFilePath)
+        prepareTaskFiles();
+        excludeFile = getFileFromConfigCache(excludeFilePath)
 
         def antBuilder = services.get(IsolatedAntBuilder)
         antBuilder.withClasspath(findbugsClasspath).execute {

@@ -11,7 +11,7 @@ import org.gradle.api.tasks.TaskAction
 class AndroidPmdTask extends BaseStatisticTask {
 
     public static final String pmdTaskClassname = 'net.sourceforge.pmd.ant.PMDTask'
-    public static final String rulesetPath = "pmd/pmd-basic-rules.xml"
+    public static final String rulesetPath = "pmd/pmd-ruleset.xml"
 
     @InputFile
     @Optional
@@ -23,7 +23,7 @@ class AndroidPmdTask extends BaseStatisticTask {
 
     @Override
     String getXslFilePath() {
-        return "pmd/pmd-nicerhtml.xsl"
+        return "pmd/pmd-html.xsl"
     }
 
     @Override
@@ -38,12 +38,9 @@ class AndroidPmdTask extends BaseStatisticTask {
 
     @TaskAction
     def runPmd() {
-        project.dependencies.add('codequality', 'pmd:pmd:4.2.6')
 
-        createOutputFileIfNeeded()
-        getXlsFile()
-
-        rulesetFile = getDefaultFileIfNeeded(rulesetFile, rulesetPath)
+        prepareTaskFiles()
+        rulesetFile = getFileFromConfigCache(rulesetPath)
 
         def antBuilder = services.get(IsolatedAntBuilder)
         antBuilder.withClasspath(pmdClasspath).execute {

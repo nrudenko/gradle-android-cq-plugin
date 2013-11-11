@@ -1,3 +1,9 @@
+THANKS FOR GREAT WORK!!!
+=========
+https://github.com/sethrylan/rosette.git
+
+
+
 gradle-android-cq-plugin
 ===============================
 
@@ -14,7 +20,7 @@ Usage:
 
 Add the plugin to your `buildscript`'s `dependencies` section:
 ```groovy
-classpath 'com.github.nrudenko:gradle-android-cq-plugin:0.0.1-SNAPSHOT'
+classpath 'com.github.nrudenko:gradle-android-cq-plugin:0.1.0'
 ```
 
 Apply the `android-cq` plugin:
@@ -23,12 +29,12 @@ apply plugin: 'android-cq'
 ```
 
 Run:
-`./gradlew clean findbugs cmd cpd checkstyle`
+`./gradlew clean findbugs pmd cpd checkstyle`
 
 results will be placed in build/reports dir
 
 Config:
 -------
-For config tasks use folder `cq-config` which will be created after first tasks runing in project dir.
-In `cq-config` will be placed main configs(like ruleset, exclude etc.) and xslt files. 
-For customize just replace needed config in needed folder.
+For configs tasks use folder `cq-config` which will be created in project root dir after first tasks runing.
+In `cq-config` will be placed main configs(like ruleset, exclude etc.) and xsl files. 
+For customizing tasks just replace appropriate config in task's folder.
