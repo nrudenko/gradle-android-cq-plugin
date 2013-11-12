@@ -10,7 +10,7 @@ import org.gradle.api.tasks.TaskAction
  * See parameters at http://findbugs.sourceforge.net/manual/anttask.html
  */
 class AndroidFindBugsTask extends BaseStatisticTask {
-    public static final String excludeFilePath = "findbugs/exclude.xsl"
+    public static final String excludeFilePath = "findbugs/exclude.xml"
     public static final String findbugTaskClassname = 'edu.umd.cs.findbugs.anttask.FindBugsTask'
     @InputFile
     @Optional
@@ -29,7 +29,7 @@ class AndroidFindBugsTask extends BaseStatisticTask {
 
     @Override
     String getOutputPath() {
-        return "$project.buildDir/reports/findbugs/findbugs-${project.name}.xml"
+        return "$project.buildDir/reports/findbugs/findbugs-result.xml"
     }
 
     def AndroidFindBugsTask() {

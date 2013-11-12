@@ -28,7 +28,7 @@ class AndroidPmdTask extends BaseStatisticTask {
 
     @Override
     String getOutputPath() {
-        return "$project.buildDir/reports/pmd/pmd-${project.name}.xml"
+        return "$project.buildDir/reports/pmd/pmd-result.xml"
     }
 
     def AndroidPmdTask() {

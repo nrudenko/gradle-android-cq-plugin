@@ -20,7 +20,7 @@ Usage:
 
 Add the plugin to your `buildscript`'s `dependencies` section:
 ```groovy
-classpath 'com.github.nrudenko:gradle-android-cq-plugin:0.1.0'
+classpath 'com.github.nrudenko:gradle-android-cq-plugin:0.1.+'
 ```
 
 Apply the `android-cq` plugin:
@@ -31,7 +31,7 @@ apply plugin: 'android-cq'
 Run:
 `./gradlew clean findbugs pmd cpd checkstyle`
 
-results will be placed in build/reports dir
+results will be placed in `build/reports dir`
 
 Config:
 -------

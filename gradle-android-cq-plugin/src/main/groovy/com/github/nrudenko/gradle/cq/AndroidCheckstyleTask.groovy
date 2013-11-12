@@ -28,7 +28,7 @@ class AndroidCheckstyleTask extends BaseStatisticTask {
 
     @Override
     String getOutputPath() {
-        return "$project.buildDir/reports/checkstyle/checkstyle-${project.name}.xml"
+        return "$project.buildDir/reports/checkstyle/checkstyle-result.xml"
     }
 
     def AndroidCheckstyleTask() {

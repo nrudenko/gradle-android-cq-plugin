@@ -16,7 +16,7 @@ class AndroidCpdTask extends BaseStatisticTask {
 
     @Override
     String getOutputPath() {
-        return "$project.buildDir/reports/cpd/cpd-${project.name}.xml"
+        return "$project.buildDir/reports/cpd/cpd-result.xml"
     }
 
     @TaskAction
