@@ -20,7 +20,7 @@ Usage:
 
 Add the plugin to your `buildscript`'s `dependencies` section:
 ```groovy
-classpath 'com.github.nrudenko:gradle-android-cq-plugin:0.1.+'
+classpath 'com.github.nrudenko:gradle-android-cq-plugin:0.1+'
 ```
 
 Apply the `android-cq` plugin:
