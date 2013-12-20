@@ -36,7 +36,6 @@ class AndroidFindBugsTask extends BaseStatisticTask {
         description = 'Runs FindBugs against Android sourcesets.'
         group = 'Code Quality'
         dependsOn 'assemble'
-        dependsOn 'assembleTest'
         dependsOn 'assembleDebug'
     }
 
