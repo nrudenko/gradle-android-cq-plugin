@@ -50,6 +50,20 @@ abstract class BaseStatisticTask extends DefaultTask {
         file
     }
 
+    def applyToFileSet(Closure func){
+        gradleProject.android.sourceSets.each { sourceSet ->
+            sourceSet.javaDirectories.each { dir ->
+                if (dir.exists()) {
+                    dir.eachDirRecurse() { subDir ->
+                        subDir.eachFileMatch(~/.*.java/) { file ->
+                            func(file)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     void makeHtml(def ant) {
         if (outputFile.exists() && xslFile != null && xslFile.exists()) {
             ant.xslt(in: outputFile,
