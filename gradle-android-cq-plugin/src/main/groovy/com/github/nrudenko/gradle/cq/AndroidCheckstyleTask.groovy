@@ -47,11 +47,7 @@ class AndroidCheckstyleTask extends BaseStatisticTask {
             // see also, maxWarnings and failureProperty arguments
             ant.checkstyle(config: configFile, failOnViolation: !ignoreFailures) {
                 fileset(dir: gradleProject.projectDir.getPath()) {
-                    gradleProject.android.sourceSets.each { sourceSet ->
-                        sourceSet.java.each { file ->
-                            include(name: gradleProject.relativePath(file))
-                        }
-                    }
+                    applyToFileSet({file -> include(name: gradleProject.relativePath(file))})
                 }
                 if (showViolations) {
                     formatter(type: 'plain', useFile: false)

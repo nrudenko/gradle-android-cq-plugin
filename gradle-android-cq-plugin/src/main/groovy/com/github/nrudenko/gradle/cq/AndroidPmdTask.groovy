@@ -50,11 +50,7 @@ class AndroidPmdTask extends BaseStatisticTask {
                     rulesetfiles: rulesetFile.toURI().toString()) {
                 formatter(type: 'xml', toFile: outputFile, toConsole: showViolations)
                 fileset(dir: gradleProject.projectDir.getPath()) {
-                    gradleProject.android.sourceSets.each { sourceSet ->
-                        sourceSet.java.each { file ->
-                            include(name: gradleProject.relativePath(file))
-                        }
-                    }
+                    applyToFileSet({file -> include(name: gradleProject.relativePath(file))})
                 }
             }
             makeHtml(ant)

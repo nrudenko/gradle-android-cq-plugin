@@ -31,11 +31,7 @@ class AndroidCpdTask extends BaseStatisticTask {
                     outputFile: outputPath
             ) {
                 fileset(dir: gradleProject.projectDir.getPath()) {
-                    gradleProject.android.sourceSets.each { sourceSet ->
-                        sourceSet.java.each { file ->
-                            include(name: gradleProject.relativePath(file))
-                        }
-                    }
+                    applyToFileSet({file -> include(name: gradleProject.relativePath(file))})
                 }
             }
 
