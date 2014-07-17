@@ -62,6 +62,7 @@ class AndroidFindBugsTask extends BaseStatisticTask {
                     sourcePath(path: srcDir)
                 }
                 "class"(location: "$gradleProject.buildDir/classes")
+                "class"(location: "$gradleProject.buildDir/intermediates/classes")
             }
 
             if (ant.project.properties[errorProp]) {
