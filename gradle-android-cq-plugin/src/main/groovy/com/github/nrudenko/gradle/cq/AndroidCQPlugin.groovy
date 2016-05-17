@@ -16,7 +16,7 @@ public class AndroidCQPlugin implements Plugin<Project> {
 
         project.dependencies.add('compile', 'com.google.code.findbugs:annotations:3.0.1')
         project.dependencies.add('findbugs', 'com.google.code.findbugs:findbugs-ant:3.0.0')
-        project.dependencies.add('codequality', 'com.puppycrawl.tools:checkstyle:6.14.1')
+        project.dependencies.add('codequality', 'com.puppycrawl.tools:checkstyle:6.18')
         project.dependencies.add('codequality', 'pmd:pmd:4.3')
 
         project.task('findbugs', type: AndroidFindBugsTask)
