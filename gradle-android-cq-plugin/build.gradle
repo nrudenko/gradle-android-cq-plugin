@@ -8,7 +8,7 @@ buildscript {
 }
 
 group = 'com.github.nrudenko'
-version = '0.1.5'
+version = '0.1.7'
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
